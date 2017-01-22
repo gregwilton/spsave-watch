@@ -4,7 +4,7 @@
   "description": "Watch files and upload them to SharePoint",
   "main": "src/cli.js",
   "bin": {
-      "spsave-watch": "./src/cli.js"
+    "spsave-watch": "./src/cli.js"
   },
   "repository": {
     "type": "git",
