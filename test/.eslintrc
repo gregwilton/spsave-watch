@@ -1,0 +1,6 @@
+{
+  "extends": ["gregwilton/development"],
+  "env": {
+    "mocha": true
+  }
+}

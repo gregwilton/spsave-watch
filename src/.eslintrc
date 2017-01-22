@@ -1,0 +1,6 @@
+{
+  "extends": ["gregwilton/production"],
+  "rules": {
+    "no-console": "off"
+  }
+}
