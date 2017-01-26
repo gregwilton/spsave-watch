@@ -26,7 +26,8 @@ utils.loadConfig(argv)
   .then(config => utils.promptForMissingArgs(config))
   .then(config => utils.mergeDefaults(defaults, config))
   .then((config) => {
-    const watcher = chokidar.watch(config.get('path'), { ignoreInitial: true });
+    const paths = config.get('path').toJS();
+    const watcher = chokidar.watch(paths, { ignoreInitial: true });
 
     watcher
       .on('add', path => utils.uploadFile(path, config))
