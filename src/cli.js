@@ -5,11 +5,13 @@ const yargs = require('yargs');
 const utils = require('./utils');
 
 const argv = yargs
+  .usage('Usage: spsave-watch [options]')
   .describe('path', 'Path or glob to files/directory to be watched')
   .describe('config', 'Path to configuration file')
   .describe('siteUrl', 'URL for SharePoint site')
   .describe('folder', 'Folder within the SharePoint site')
   .describe('username', 'Username for SharePoint site')
+  .help('help')
   .argv;
 
 const defaults = {
