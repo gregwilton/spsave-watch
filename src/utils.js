@@ -150,18 +150,33 @@ function mergeDefaults(defaults, config) {
   return Immutable.fromJS(defaults).mergeDeep(config);
 }
 
-function uploadFile(filePath, config) {
-  const { coreOptions, credentials, fileOptions } = config.toJS();
-  const date = moment().format('HH:mm:ss');
+function log(message) {
+  const time = moment().format('HH:mm:ss');
+  console.log('[%s] %s', time, message);
+}
 
-  console.log('[%s] Uploading: %s', date, filePath);
+function uploadFile(filePath, config, retryIfEmpty = true) {
+  const { coreOptions, credentials, fileOptions } = config.toJS();
+
+  log(`Uploading: ${filePath}`);
 
   fs.readFileAsync(filePath)
     .then((contents) => {
-      fileOptions.fileContent = contents;
-      fileOptions.fileName = path.basename(filePath);
+      if (contents.length > 0) {
+        fileOptions.fileContent = contents;
+        fileOptions.fileName = path.basename(filePath);
 
-      return spsave(coreOptions, credentials, fileOptions);
+        return spsave(coreOptions, credentials, fileOptions);
+      }
+
+      if (retryIfEmpty) {
+        log('File was empty; will retry after delay');
+        setTimeout(() => uploadFile(filePath, config, false), 1000);
+      } else {
+        log('File was empty; ignoring');
+      }
+
+      return Promise.resolve();
     })
     .catch(err => console.error(err));
 }
