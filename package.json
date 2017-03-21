@@ -1,6 +1,6 @@
 {
   "name": "spsave-watch",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Watch files and upload them to SharePoint",
   "main": "src/cli.js",
   "bin": {

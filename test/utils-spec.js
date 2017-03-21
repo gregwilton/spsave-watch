@@ -34,6 +34,14 @@ describe('[mergeArgs]', () => {
     expect(result.path).to.deep.equal(path);
   });
 
+  it('Should store single paths as an array one item', () => {
+    const path = './a';
+    const argv = { path };
+    const result = utils.mergeArgs(config, argv).toJS();
+
+    expect(result.path).to.deep.equal([path]);
+  });
+
   it('Should give precedence to "siteUrl" from argv', () => {
     const siteUrl = 'https://bbb.com';
     const argv = { siteUrl };

@@ -19,7 +19,8 @@ function loadConfig(argv) {
 function mergeArgs(config, argv) {
   return config.withMutations((map) => {
     if (argv.path) {
-      map.set('path', Immutable.fromJS(argv.path));
+      const value = typeof argv.path === 'string' ? [argv.path] : argv.path;
+      map.set('path', Immutable.fromJS(value));
     }
 
     if (argv.siteUrl) {
@@ -57,7 +58,7 @@ function loadMissingCredentials(config) {
 function mergePromptResults(config, result) {
   return config.withMutations((map) => {
     if (result.path) {
-      map.set('path', result.path);
+      map.set('path', Immutable.fromJS([result.path]));
     }
 
     if (result.siteUrl) {
