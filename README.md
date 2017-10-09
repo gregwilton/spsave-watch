@@ -84,10 +84,8 @@ the root of the user's home directory.
 
 ```json
 {
-  "credentials": {
-    "username": "user@useronmicrosoft.com",
-    "password": "1234"
-  }
+  "username": "user@useronmicrosoft.com",
+  "password": "1234"
 }
 ```
 
