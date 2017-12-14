@@ -1,8 +1,0 @@
-{
-  "root": true,
-  "extends": ["gregwilton"],
-  "env": {
-    "node": true,
-    "es6": true
-  }
-}

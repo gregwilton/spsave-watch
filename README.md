@@ -8,13 +8,13 @@ module. Most configuration options simply pass through to spsave.
 
 This tool will flatten the directory structure when files are uploaded. This
 limitation was acceptable as the expected use-cases only include watching a
-small number of files. More advanced build process should look
+small number of files. More advanced build process should use
 [gulp-spsave](https://github.com/s-KaiNet/gulp-spsave).
 
 ## Installation
 
 ```
-npm install git+https://github.com/gregwilton/spsave-watch.git --global
+yarn global add install git+https://github.com/gregwilton/spsave-watch.git
 ```
 
 ## Example usage
@@ -28,17 +28,16 @@ spsave-watch --config ./config.json
 Combine command line arguments with a configuration file:
 
 ```
-spsave-watch --path ./src --path ./test --config ./config.json
+spsave-watch --config ./config.json --path ./dist/main.js --path ./dist/vendor.js
 ```
-
 
 ## Configuration
 
-All properties listed in the example configuration file below are required but
+All properties, listed in the example configuration file, below are required but
 can be specified in multiple ways. The following algorithm will be used to
 locate the values.
 
-1. Load the configuration JSON file (is the path was supplied as an argument).
+1. Load the configuration JSON file (from the path was supplied as an argument).
 2. Override any configuration values with the values supplied by the command
    line arguments.
 3. If no credentials have been supplied, look for a `credentials.json` in the
@@ -60,7 +59,7 @@ username | Username for SharePoint site
 
 ```json
 {
-  "path": ["./src1", "./src2"],
+  "path": ["./dist/main.js", "./dist/vendor.js"],
   "coreOptions": {
     "siteUrl": "https://user.sharepoint.com"
   },
@@ -74,8 +73,8 @@ username | Username for SharePoint site
 }
 ```
 
-The coreOptions object is passed directly to `spsave` and can include any valid
-value accepted by that module.
+The `coreOptions` object is passed directly to `spsave` and can include any
+valid value accepted by that module.
 
 ### Credentials file
 
@@ -99,5 +98,5 @@ the root of the user's home directory.
 }
 ```
 
-The `checkin` property is set to false because I usually checkout the first and
-leave them checked out while testing the changes.
+The `checkin` property is set to false because I usually checkout the file first
+and leave them checked out while testing the changes.
