@@ -14,7 +14,7 @@ small number of files. More advanced build process should use
 ## Installation
 
 ```
-yarn global add install git+https://github.com/gregwilton/spsave-watch.git
+yarn global add git+https://github.com/gregwilton/spsave-watch.git
 ```
 
 ## Example usage
