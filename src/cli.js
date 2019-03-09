@@ -11,6 +11,8 @@ const argv = yargs
   .describe('siteUrl', 'URL for SharePoint site')
   .describe('folder', 'Folder within the SharePoint site')
   .describe('username', 'Username for SharePoint site')
+  .describe('noNormalise', 'Do not normalise path values')
+  .boolean('noNormalise')
   .help('help')
   .argv;
 
@@ -25,6 +27,7 @@ utils.loadConfig(argv)
   .then(config => utils.loadMissingCredentials(config))
   .then(config => utils.promptForMissingArgs(config))
   .then(config => utils.mergeDefaults(defaults, config))
+  .then(config => utils.normaliseGlobs(config, argv))
   .then((config) => {
     const paths = config.get('path').toJS();
     const watcher = chokidar.watch(paths, { ignoreInitial: true });

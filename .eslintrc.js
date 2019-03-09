@@ -17,6 +17,7 @@ module.exports = {
     // ECMAScript 6
     'arrow-body-style': 'off',
     'max-len': 'off',
+    'prefer-destructuring': 'off',
 
     // ------------------------------------------------------------------------
     // React plugin

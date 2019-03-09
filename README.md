@@ -31,6 +31,12 @@ Combine command line arguments with a configuration file:
 spsave-watch --config ./config.json --path ./dist/main.js --path ./dist/vendor.js
 ```
 
+Path values can be globs:
+
+```
+spsave-watch --config ./config.json --path ./dist/main.*
+```
+
 ## Configuration
 
 All properties, listed in the example configuration file, below are required but
@@ -47,13 +53,14 @@ locate the values.
 
 ### Command line arguments
 
-Argument | Description
----------| ----------------------------------------------
-path     | Path or glob to files/directory to be watched
-config   | Path to configuration file
-siteUrl  | URL for SharePoint site
-folder   | Folder within the SharePoint site
-username | Username for SharePoint site
+Argument    | Description
+------------| ----------------------------------------------
+path        | Path or glob to files/directory to be watched
+config      | Path to configuration file
+siteUrl     | URL for SharePoint site
+folder      | Folder within the SharePoint site
+username    | Username for SharePoint site
+noNormalise | Do not normalise path values
 
 ### Configuration file format
 
@@ -100,3 +107,13 @@ the root of the user's home directory.
 
 The `checkin` property is set to false because I usually checkout the file first
 and leave them checked out while testing the changes.
+
+## Globs on Windows
+
+This application uses `chokidar@2` to watch the files and version 2 is more
+strict about how backslashes are handled. This can cause problems on Windows
+(particularly when using tab-completion when defining the path).
+
+To simplify usage on Windows, all `path` values are converted to use
+forward-slashes. This will cause problems if the glob actually needs to escape
+something. To disable this functionality, use the `--noNormalise` switch.

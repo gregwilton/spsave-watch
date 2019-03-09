@@ -1,14 +1,15 @@
-const fs = require('fs-extra-promise');
+const fs = require('fs-extra');
 const Immutable = require('immutable');
 const moment = require('moment');
 const path = require('path');
 const os = require('os');
 const prompt = require('prompt');
+const upath = require('upath');
 const spsave = require('spsave').spsave;
 
 function loadConfig(argv) {
   if (argv.config) {
-    return fs.readJsonAsync(argv.config).then((config) => {
+    return fs.readJson(argv.config).then((config) => {
       return Immutable.fromJS(config);
     });
   }
@@ -42,7 +43,7 @@ function loadMissingCredentials(config) {
   if (!config.has('credentials')) {
     const configFile = path.resolve(os.homedir(), 'credentials.json');
 
-    return fs.readJsonAsync(configFile)
+    return fs.readJson(configFile)
       .then((credentials) => {
         return config.set('credentials', Immutable.fromJS(credentials));
       })
@@ -151,6 +152,16 @@ function mergeDefaults(defaults, config) {
   return Immutable.fromJS(defaults).mergeDeep(config);
 }
 
+function normaliseGlobs(config, argv) {
+  if (os.platform() !== 'win32' || argv.noNormalise) {
+    return config;
+  }
+
+  return config.set('path', config.get('path').map((value) => {
+    return upath.normalize(value);
+  }));
+}
+
 function log(message) {
   const time = moment().format('HH:mm:ss');
   console.log('[%s] %s', time, message);
@@ -161,7 +172,7 @@ function uploadFile(filePath, config, retryIfEmpty = true) {
 
   log(`Uploading: ${filePath}`);
 
-  fs.readFileAsync(filePath)
+  fs.readFile(filePath)
     .then((contents) => {
       if (contents.length > 0) {
         fileOptions.fileContent = contents;
@@ -188,5 +199,6 @@ module.exports = {
   loadMissingCredentials,
   promptForMissingArgs,
   mergeDefaults,
+  normaliseGlobs,
   uploadFile
 };

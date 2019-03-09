@@ -1,6 +1,6 @@
 {
   "name": "spsave-watch",
-  "version": "1.0.3",
+  "version": "2.0.0",
   "description": "Watch files and upload them to SharePoint",
   "license": "ISC",
   "main": "src/cli.js",
@@ -18,21 +18,22 @@
     "test": "mocha --recursive test/**/*-spec.js || exit 0"
   },
   "dependencies": {
-    "chokidar": "^1.6.1",
-    "fs-extra-promise": "^0.4.1",
+    "chokidar": "^2.1.2",
+    "fs-extra": "^7.0.1",
     "immutable": "^3.8.1",
-    "moment": "^2.17.1",
+    "moment": "^2.24.0",
     "prompt": "^1.0.0",
-    "spsave": "^3.0.2",
-    "yargs": "^6.6.0"
+    "spsave": "^3.1.5",
+    "upath": "1.1.0",
+    "yargs": "^13.2.2"
   },
   "devDependencies": {
-    "chai": "^3.5.0",
-    "eslint": "^3.13.0",
-    "eslint-config-airbnb": "^14.0.0",
-    "eslint-plugin-import": "^2.2.0",
-    "eslint-plugin-jsx-a11y": "^3.0.2",
-    "eslint-plugin-react": "^6.9.0",
-    "mocha": "^3.2.0"
+    "chai": "^4.2.0",
+    "eslint": "5.3.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-plugin-import": "2.14.0",
+    "eslint-plugin-jsx-a11y": "6.1.1",
+    "eslint-plugin-react": "7.11.0",
+    "mocha": "^6.0.2"
   }
 }
